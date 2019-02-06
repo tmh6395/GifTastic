@@ -1,0 +1,31 @@
+html{
+    height: 100%;
+}
+
+body{
+    height: 100%;
+}
+
+button{
+    margin: 0.5em;
+}
+
+#button-div{
+    background-color: red;
+    margin: 0;
+}
+
+#gif-div{
+    position: absolute;
+    background-color: thistle;
+    display: inline-block;
+    width: 50%;
+}
+
+#input-div{
+    background-color: springgreen;
+    float: right;
+    width: 40%;
+    padding: 1em;
+    /* height: 300px; */
+}
