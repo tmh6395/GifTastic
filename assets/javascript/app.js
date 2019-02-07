@@ -3,58 +3,86 @@
 // 2. Create button B
 // 3. Click button A
 // 4. Get GIFs relative to B
-    let topics = [];
-    let word;
-    let queryURL;
+let topics = [];
+let word;
+let queryURL;
 
 
 
 
 
 
-    $("#submit-button").click(function () {
-        event.preventDefault();
-        word = $("#text-box").val();
+$("#submit-button").click(function () {
+    event.preventDefault();
+    word = $("#text-box").val();
 
-        if (!topics.includes(word)) {
-            topics.push(word);
+    if (!topics.includes(word)) {
+        topics.push(word);
 
-            let newButton = $("<button>");
-            newButton.text(word);
-            newButton.attr("id", word);
-            newButton.addClass("topic-buttons");
+        let newButton = $("<button>");
+        newButton.text(word);
+        newButton.attr("id", word);
+        newButton.addClass("topic-buttons");
 
-            $("#button-div").append(newButton);
+        $("#button-div").append(newButton);
+    }
+});
+
+
+// WOOOOO! Cool solution! (hopefully)
+$(document).on("click", "#button-div .topic-buttons", function () {
+    // Target the `this` button's ID
+    let currentAnimal = $(this).attr("id");
+    queryURL = "https://api.giphy.com/v1/gifs/search?api_key=zQ8KTlIbznfhDm4LIUw6fKleVMQr1UL8&q=" + currentAnimal + "&limit=10&lang=en";
+
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (response) {
+        results = response.data;
+        // Empty the div of previous GIFs
+        $("#gif-div").empty();
+
+        for (let i in results) {
+            // Create new image div and put it in a variable
+            let newGif = $("<img>");
+            // Give it an attribute of src of below url
+            newGif.attr("src", results[i].images.fixed_width_still.url);
+            newGif.attr("data-still", results[i].images.fixed_width_still.url);
+            newGif.attr("data-animate", results[i].images.fixed_width.url);
+            newGif.attr("data-state", "still");
+
+            newGif.addClass("added-gifs");
+            // Prepend it to gif-div
+            $("#gif-div").prepend(newGif);
         }
+
     });
+});
 
 
-    // WOOOOO! Cool solution! (hopefully)
-    $(document).on("click", "#button-div .topic-buttons", function(){
-        // Target the `this` button's ID
-        let currentAnimal = $(this).attr("id");
-        queryURL = "https://api.giphy.com/v1/gifs/search?api_key=zQ8KTlIbznfhDm4LIUw6fKleVMQr1UL8&q=" + currentAnimal + "&limit=10&lang=en";
 
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        }).then(function (response) {
-            results = response.data;
 
-            // Empty the div of previous GIFs
-            $("#gif-div").empty();
 
-            for (let i in results) {
-                // Create new image div and put it in a variable
-                let newGif = $("<img>");
-                // Give it an attribute of src of below url
-                newGif.attr("src", results[i].images.fixed_height.url);
-                // Prepend it to gif-div
-                $("#gif-div").prepend(newGif);
-            }
+// Click handler to turn still GIFs into animated GIFs
+$(document).on("click", "#gif-div .added-gifs", function(){
 
-        });
-    });
+    let state = $(this).attr("data-state");
+
+    if (state === "still"){
+        $(this).attr("data-state", "animate");
+        $(this).attr("src", $(this).attr("data-animate"));
+    }else if (state === "animate"){
+        $(this).attr("data-state", "still");
+        $(this).attr("src", $(this).attr("data-still"));
+    }
+});
+
+
+
+
+
+
 
     //     // Empty the gif-div
     //     $("#gif-div").empty();
