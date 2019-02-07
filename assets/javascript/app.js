@@ -1,49 +1,199 @@
-
-let animalArray = [];
-
-$("#submit-button").on("click", function () {
-
-    let word = $("#animal-input").val();
-    let queryURL = "https://api.giphy.com/v1/gifs/search?api_key=zQ8KTlIbznfhDm4LIUw6fKleVMQr1UL8&q=" + word + "&limit=10&lang=en";
-
-    if (!animalArray.includes(word)) {
-        // empty the gif-div
-
-        $("#gif-div").empty();
+// Current main problem: after clicking a button, I can click another button and the GIFs that appear are only associated of the most recent "word" created. E.G.:
+// 1. Create button A
+// 2. Create button B
+// 3. Click button A
+// 4. Get GIFs relative to B
+    let topics = [];
+    let word;
+    let queryURL;
 
 
 
-        animalArray.push(word);
-        console.log(animalArray);
-        let newButton = $("<button>");
-        newButton.text(word);
-        $("#button-div").append(newButton);
 
 
-        searchAnimalGifs();
 
+    $("#submit-button").click(function () {
+        event.preventDefault();
+        word = $("#text-box").val();
 
-        function searchAnimalGifs() {
-            $.ajax({
-                url: queryURL,
-                method: "GET"
-            }).then(function (response) {
-                
-                let results = response.data;
+        if (!topics.includes(word)) {
+            topics.push(word);
 
-                for (let i in results) {
-                    // create new image div and put it in a variable
-                    let newGif = $("<img>");
-                    //give it attribute of src of below url
-                    newGif.attr("src", results[i].images.fixed_height.url);
-                    //prepend it to gif-div
-                    $("#gif-div").prepend(newGif);
-                    // console.log(results[i].images.fixed_height.url);
-                }
-            })
+            let newButton = $("<button>");
+            newButton.text(word);
+            newButton.attr("id", word);
+            newButton.addClass("topic-buttons");
+
+            $("#button-div").append(newButton);
         }
-    }
-});
+    });
+
+
+    // WOOOOO! Cool solution! (hopefully)
+    $(document).on("click", "#button-div .topic-buttons", function(){
+        // check id of button clicked w/ this
+        let test = $(this).attr("id");
+        console.log("test: " + test);
+
+    });
+
+
+
+
+
+    // $("#button-div").on("click", function () {
+
+    // $.ajax({
+    //     url: queryURL,
+    //     method: "GET"
+    // }).then(function (response) {
+
+    //     let results = response.data;
+
+    //     // Empty the gif-div
+    //     $("#gif-div").empty();
+    //     for (let i in results) {
+    //         // Create new image div and put it in a variable
+    //         let newGif = $("<img>");
+    //         // Give it attribute of src of below url
+    //         newGif.attr("src", results[i].images.fixed_height.url);
+    //         // Prepend it to gif-div
+    //         $("#gif-div").prepend(newGif);
+    //     }
+    // });
+
+    // searchAnimalGifs();
+    // });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // let newButton = $("<button>");
+    // queryURL = "https://api.giphy.com/v1/gifs/search?api_key=zQ8KTlIbznfhDm4LIUw6fKleVMQr1UL8&q=" + word + "&limit=10&lang=en";
+    // newButton.text(word);
+    // newButton.attr("id", word);
+    // $("#button-div").append(newButton);
+
+    // else{
+    //     $.ajax({
+    //         url: queryURL,
+    //         method: "GET"
+    //     }).then(function (response) {
+
+    //         let results = response.data;
+
+    //         // Empty the gif-div
+    //         $("#gif-div").empty();
+    //         for (let i in results) {
+    //             // Create new image div and put it in a variable
+    //             let newGif = $("<img>");
+    //             // Give it attribute of src of below url
+    //             newGif.attr("src", results[i].images.fixed_height.url);
+    //             // Prepend it to gif-div
+    //             $("#gif-div").prepend(newGif);
+    //         }
+    //     });
+    // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // $("#submit-button").on("click", function () {
+    //     word = $(this).type;
+    //     console.log("word:" + word);
+
+    //     if (!topics.includes(word)) {
+    //         topics.push(word);
+    //         let newButton = $("<button>");
+    //         queryURL = "https://api.giphy.com/v1/gifs/search?api_key=zQ8KTlIbznfhDm4LIUw6fKleVMQr1UL8&q=" + word + "&limit=10&lang=en";
+    //         newButton.text(word);
+    //         newButton.attr("id", word);
+    //         $("#button-div").append(newButton);
+
+    //     }
+    // });
+
+
+    // $("#button-div").on("click", function () {
+
+
+
+
+    // $.ajax({
+    //     url: queryURL,
+    //     method: "GET"
+    // }).then(function (response) {
+
+    //     let results = response.data;
+
+    //     // Empty the gif-div
+    //     $("#gif-div").empty();
+    //     for (let i in results) {
+    //         // Create new image div and put it in a variable
+    //         let newGif = $("<img>");
+    //         // Give it attribute of src of below url
+    //         newGif.attr("src", results[i].images.fixed_height.url);
+    //         // Prepend it to gif-div
+    //         $("#gif-div").prepend(newGif);
+    //     }
+    // });
+
+    // searchAnimalGifs();
+    // });
+
+
+
+
+
 
 
 
