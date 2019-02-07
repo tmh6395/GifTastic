@@ -31,11 +31,42 @@
 
     // WOOOOO! Cool solution! (hopefully)
     $(document).on("click", "#button-div .topic-buttons", function(){
-        // check id of button clicked w/ this
-        let test = $(this).attr("id");
-        console.log("test: " + test);
+        // Target the `this` button's ID
+        let currentAnimal = $(this).attr("id");
+        queryURL = "https://api.giphy.com/v1/gifs/search?api_key=zQ8KTlIbznfhDm4LIUw6fKleVMQr1UL8&q=" + currentAnimal + "&limit=10&lang=en";
 
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (response) {
+            results = response.data;
+
+            // Empty the div of previous GIFs
+            $("#gif-div").empty();
+
+            for (let i in results) {
+                // Create new image div and put it in a variable
+                let newGif = $("<img>");
+                // Give it an attribute of src of below url
+                newGif.attr("src", results[i].images.fixed_height.url);
+                // Prepend it to gif-div
+                $("#gif-div").prepend(newGif);
+            }
+
+        });
     });
+
+    //     // Empty the gif-div
+    //     $("#gif-div").empty();
+    //     for (let i in results) {
+    //         // Create new image div and put it in a variable
+    //         let newGif = $("<img>");
+    //         // Give it attribute of src of below url
+    //         newGif.attr("src", results[i].images.fixed_height.url);
+    //         // Prepend it to gif-div
+    //         $("#gif-div").prepend(newGif);
+
+
 
 
 
