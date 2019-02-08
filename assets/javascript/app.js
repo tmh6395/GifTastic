@@ -38,7 +38,6 @@ $(document).on("click", "#button-div .topic-buttons", function () {
         method: "GET"
     }).then(function (response) {
         results = response.data;
-        console.log(response);
         // Empty the div of previous GIFs
         $("#gif-div").empty();
 
