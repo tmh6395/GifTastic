@@ -6,14 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>GIF-Tastic!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet' />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
-    <div id="button-div"></div>
+    <div id="button-div">
+        <button class="topic-buttons" id="cat">Cat</button>
+        <button class="topic-buttons" id="dog">Dog</button>
+        <button class="topic-buttons" id="bear">Bear</button>
+        <button class="topic-buttons" id="ferret">Ferret</button>
+        <button class="topic-buttons" id="catdog">Catdog</button>
+    </div>
 
     <div id="test">
         <div id="gif-div"></div>
@@ -21,26 +28,16 @@
         <div id="input-div">
             <form>
                 <h1>Add an animal</h1>
-                <input type="text" id="text-box"/>
-                <input type="submit" id="submit-button"/>
+                <input type="text" id="text-box" />
+                <input type="submit" id="submit-button" />
             </form>
         </div>
 
-
-        <!-- <div id="input-div">
-            <h1>Add an animal</h1>
-            <input class="form-control" id="animal-input" type="text" placeholder="Type animal name here" />
-            <button id="submit-button">Submit</button>
-        </div> -->
-
-
-
-
-
-
     </div>
 
-
+    <!-- Button to go to the top of the screen after scrolling
+     Source: https://www.w3schools.com/howto/howto_js_scroll_to_top.asp -->
+    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 
     <script src="assets/javascript/app.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
