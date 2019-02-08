@@ -7,7 +7,7 @@ $("#submit-button").click(function (event) {
 
     if ($("#text-box").val() !== "") {
 
-        let word = $("#text-box").val();
+        let word = $("#text-box").val().trim().toLowerCase();
         $("#text-box").val('');
 
         if (!topics.includes(word)) {
